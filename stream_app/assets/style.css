@@ -92,7 +92,7 @@ blockquote {
 
 .sidenav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 20%; /* Set the width of the sidebar */
+    width: 325px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
@@ -106,9 +106,8 @@ blockquote {
 }
 
 .main {
-    margin-left: 23%; /* Same as the width of the sidebar */
+    margin-left: 350px; /* Same as the width of the sidebar */
     padding: 0px 10px;
-
 }
 
 .label {
@@ -121,9 +120,7 @@ blockquote {
 }
 
 .infobox {
-    border-color: #DCDCDC;
-    border-style: solid;
-    border-width: 1px;
+    border : 1px solid #DCDCDC;
     padding: 0px;
     margin: 10px;
 }
@@ -133,7 +130,6 @@ blockquote {
   padding-bottom: 5px;
   padding-left: 12px;
   padding-top: 6px;
-  margin-top: 0px;
   color : #00acee;
   font-weight: 500;
   font-size : 1.5rem;

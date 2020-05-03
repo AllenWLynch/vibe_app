@@ -70,22 +70,22 @@ HASHTAG_PLOT.update_layout(
 
 TOGGLE_SWITCH = html.Div(daq.ToggleSwitch(id = 'toggle', value = False), style = {'width' : '100%', 'display' : 'inline-block'})
 
-OPTIONS_BOX = html.Div(className = 'row', style = {'margin' : '10px'}, children = [
+OPTIONS_BOX = html.Div(className = 'row', style = {'margin' : '10px', 'margin-top' : '20px'}, children = [
                 html.Div(style = {'float' : 'left', 'width' : '40%'}, children = [
-                    html.Div(className = 'infobox', style = {'margin' : '0px', 'height' : '12vh', 'border-right' : 'none'}, children = [
-                        html.Div('Interval', className = 'header'),
+                    html.Div(className = 'infobox', style = {'margin' : '0px', 'height' : '100px', 'border-right' : 'none'}, children = [
+                        html.Div('Interval', className = 'header', style = {'margin-top' : '1px'}),
                         html.Div(INTERVAL_SLIDER, className = 'body'),
                     ]),
                 ]),
                 html.Div(style = {'float' : 'left', 'width' : '20%'}, children = [
-                    html.Div(className = 'infobox', style = {'margin' : '0px', 'height' : '12vh'}, children = [
-                        html.Div('Normalize Activity', className = 'header'),
+                    html.Div(className = 'infobox', style = {'margin' : '0px', 'height' : '100px'}, children = [
+                        html.Div('Normalize Activity', className = 'header', style = {'margin-top' : '1px'}),
                         html.Div(TOGGLE_SWITCH, style = {'text-align':'center'}, className = 'body')
                     ]),
                 ]),
                 html.Div(style = {'float' : 'left', 'width' : '40%'}, children = [
-                    html.Div(className = 'infobox', style = {'margin' : '0px', 'height' : '12vh', 'border-left' : 'none'}, children = [
-                        html.Div('Filters', className = 'header'),
+                    html.Div(className = 'infobox', style = {'margin' : '0px', 'height' : '100px', 'border-left' : 'none'}, children = [
+                        html.Div('Filters', className = 'header', style = {'margin-top' : '1px'}),
                         html.Div(dcc.Dropdown(id = 'filters'), className = 'body'),
                     ]),
                 ]),
@@ -137,8 +137,19 @@ RIVER_PLOT.update_layout(
     showlegend = True,
     plot_bgcolor = '#fff',
     margin = {'l': 0, 'b': 0, 't': 0, 'r': 0},
-    xaxis_title = 'Time',
-    yaxis_title = '# of Tweets',
+    yaxis = dict(
+        title = '# of Tweets',
+        linecolor = '#DCDCDC',
+        ticks = 'outside',
+        tickcolor= '#DCDCDC',
+    ),
+    xaxis = dict(
+        showline = True,
+        linecolor = '#DCDCDC',
+        ticks = 'outside',
+        tickcolor = '#DCDCDC',
+        title = 'Time',
+    ),
     legend=dict(
         x=0.02,
         y=1,
@@ -148,7 +159,7 @@ RIVER_PLOT.update_layout(
         borderwidth=1,
         orientation="h",
     ),
-    font_family = "Arial",
+    font_family = 'Arial',
     barmode = 'relative',
 )
 
