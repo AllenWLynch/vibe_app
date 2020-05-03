@@ -2,6 +2,7 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Input, Output
 import dash_daq as daq 
 import plotly.graph_objects as go
 import random
@@ -26,12 +27,13 @@ SIDEBAR = html.Div(className='sidenav', children = [
     html.H6("How's Twitter Feeling?", style = {'margin-top':'0px'}),
     html.Hr(),
     html.Div(style = {'text-align':'left'}, children = [
-        html.P(['''Investigate daily geographical, hashtag, and sentiment trends in real time. This dashboard is backed by an 
-                advanced sentiment classifier and fed by a Spark pipeline connected to the Twitter sample stream.
+        html.P(['''Investigate daily geographical, hashtag, and sentiment trends in real time. This dashboard is backed by a powerful
+                sentiment classifier implemented with Spark and connected to the Twitter sample stream.
                 Check it out ''',
-                html.A('here.', href = 'https://github.com/AllenWLynch/spark_twitter_sentiment_stream', target = '_blank')]),
+                html.A('here.', href = 'https://github.com/AllenWLynch/spark_twitter_sentiment_stream', target = '_blank')
+            ]),
         html.Br(),
-        html.P('This pipeline is classifying:'),
+        html.P('Currently, the stream is classifying:'),
         html.Div(className = 'row', style = {'margin' : '10px'}, children = [
             html.Div(html.H1('9750', style = {'color' : COLORS['positive'], 'margin-bottom' : '0px'}), className = 'column', style = {'text-align' : 'right'}),
             html.Div(html.P('Tweets/min', style = {'margin' : '5px'}), className = 'column'),
@@ -164,6 +166,12 @@ RIVER_PLOT.update_layout(
 )
 
 app.layout = html.Div(children=[
+    dcc.ConfirmDialog(
+        id='confirm',
+        message='Oops! This dashboard is still under construction! By you can see the progress, including a trained Spark sentiment stream at {}, or by clicking "here" in the sidebar.'\
+                .format('https://github.com/AllenWLynch/spark_twitter_sentiment_stream'),
+    ),
+
     SIDEBAR, 
     html.Div(className='main', children = [
         
@@ -178,18 +186,25 @@ app.layout = html.Div(children=[
             html.Div(className = 'column', children = [
                 html.Div(className = 'infobox', children = [
                     html.Div('Geotags', className = 'header'),
-                    html.Div(dcc.Graph(id = 'geo_plot', figure = GEO_PLOT, style = {'height' : '45vh'}), className = 'body'),
+                    html.Div(dcc.Graph(id = 'geo_plot', figure = GEO_PLOT, style = {'height' : '45vh', 'margin-bottom' : '40px'}), className = 'body'),
                 ]),
             ]),
             html.Div(className = 'column', children = [
                 html.Div(className = 'infobox', children = [
                     html.Div('Hashtags', className = 'header'),
-                    html.Div(dcc.Graph(id = 'hashtag_plot', figure = HASHTAG_PLOT, style = {'height' : '45vh'}), className = 'body'),
+                    html.Div(dcc.Graph(id = 'hashtag_plot', figure = HASHTAG_PLOT, style = {'height' : '45vh', 'margin' : '20px'}), className = 'body'),
                 ]),
             ]),
         ]),
     ])
 ])
+
+@app.callback(
+    Output('confirm', 'displayed'),
+    [Input('river_plot', 'clickData')]
+)
+def oops_message(blah):
+    return True
 
 if __name__ == '__main__':
     app.run_server(debug=True)
